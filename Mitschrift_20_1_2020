@@ -1,0 +1,91 @@
+OSPF "open shortest path first"
+
+link-state routing protokolle
+sollange nix passiert brauch ma keine routing updates
+Es geht um die Schnittstellen
+
+Es werden LSUs gesendet... link updates
+Link state wird gesendet = zustand der Schnittstelle
+
+Link state router müssen alle router und schnittstellen kennen -> man braucht relativ viel Speicher
+Link state protokolle sollten auf besseren routern eingesetzt werden.
+
+
+OSPF v2 ipv4
+OSPF v3 ipv6
+
+Classless, Effizient, fast unabhängig von Netzwerkgröße, skalierbar, Sicher da man die Router sich verifizieren lassen kann 
+-> Man in the middle attacke kann verhindert werden.
+
+Wir brauchen... Routing Tabelle(Forwarding Database)
+              , Link state datenbank(Topologie Tabelle)(show ip OSPF database)
+              , Neighbor Table(Agacency Database)
+
+5 Datentypen .... Hello Packets
+                , Database Description Packete
+                , Link state requests
+                , Link state update
+                , Link state Acknowlegment
+
+Hello Packets
+wichtig.. Austauch von Hello Packete (mini ping packete) -> machen fast keinen Traffic
+Haben 2fache ausgabe. Stellen nachbarschaftsbeziehungen her.
+
+Single Area OSPF 
+OSPF -> Multicast (gibt 2 Adressen 224.0.0.5 224.0.0.6)
+
+OSPF durchläuft stadien -> Full State... wichtigstes Stadium für uns
+Netzwerk richtig wenn überall Full steht -> wenn nicht muss die Schnittstelle vom oder zum Nachbarn fehlerhaft ist
+
+
+Es gibt einen Chef router im Netzwerk, da switches auf layer 3 liegen und router denken, sie hätten point to point verbindung an alle
+Der Chef router verteilt also die updates und so wird das netzwerk nicht geflutet.
+
+Wenn ein router Configuriert ist, hat er eine router ID. 
+Der mit der höchsten wird zum Chef router, der danach zum ersatz Router
+
+Die router ID kann händisch eingestellt werden. Router ID schaut aus wie IPv4, hat aber nichts damit zu tun. 
+Also ist sie bei IPv6 auch in der Schreibweise von IPv4
+Oder, router schaut ob es ein loopback interface gibt, wenn ja wird von dort die ID mit dem höchsten interface gibt.
+
+Wir werden jeden router mit einer loopback adresse konfigurieren.
+
+OSPF schaltet sich an, wenn keine Schnittstellen am router aktiv sind. 
+Wenn dann also nach einem Stromausfall die Schnittstellen ausfallen, ist OSPF nach dem neustart noch immer aus
+Deshalb loopback interface -> da passiert das nicht. Zitat... "I sog immer, des is a billiger Trick"
+
+
+8.2.1.4 -> Liste der benötigten Befehle
+8.2.1.5 -> -------------#-------------
+8.2.2.3 -> bei OSPF muss man die Subnetmaske invertieren  (wildcard maske) 255.255.255.0 -> 0.0.0.255
+
+passive interface SCHNITTSTELLENNAME -> auf jedem router
+show ip uspf members
+show ip route
+
+
+---------------------Metric------------------
+cost -> wird als Bandbreite gelesen(war hauptfaktor der Kosten)
+Die kleinste Metric kommt in die Routing tabelle. Fast Ethernet hätte Metric 1
+Seite -> 8.2.3.1 
+
+auf jeder seriellen schnittstelle muss mit bandwith die bandbreite gesetzt werden!
+Einstellen der Bandbreite mit clockrate
+
+clockrate in einer seite = bit pro sekunde
+bandwith auf beiden seite in kilo bit pro sekunde
+show ip ospf neighbor seite 8.2.4.1
+
+
+8.3.2.6 -> Wichtige folie
+
+ospf priority, dann acht bit zahl
+auch auf den loopback interfaces ipv6 adressen konfigurieren, weil es schaut schöner aus
+
+Für Internet verbindung...
+10.1.2.3
+man schreibt default route und muss sie nur einmal schreiben. Nur auf dem einen router der die verbindung ins internet hat
+
+
+
+
