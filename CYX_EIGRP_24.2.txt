@@ -1,0 +1,66 @@
+Cyx- EIGRP
+
+Folien mit Edge öffnen
+
+geroutete Protokolle: IP, AppleDoc, NovelIPX --> EIGRP für Multiprotokolle
+
+RTP statt UDP, TCP : hat einen gesichteren uns einen ungsichteren Teil
+
+6.2.1.1
+descriptions, modt nicht vergessen!
+
+6.2.1.3
+leitung zwischen internet und router kein routing protokoll, nur default route
+
+brauchen wir wieder:
+	network commando
+	passive int
+	default route
+
+Router ID wie bei OSPF --> brauch ma nd umbedingt bei EIGRP 
+
+6.2.1.7
+Network Commmando bei IPV4
+	network [ip] [wildcard] --jeder Router hat 3 network comm
+	show route	
+
+6.2.1.8
+passive interface:
+	alle fastethernet passiv stetzen am schluss ums schlanker zu machen 
+
+Wofür brauchen wir edie Administrative Distance?
+	Welchen Protokoll vertraut der Router am meisten
+
+6.3.2.1
+zusammengesetzte Metric
+
+auf jedem Router die metric einstellen, damit sie sich vergleichen können
+
+6.3.2.3
+bandbreite nur aus seriel
+zusätzlich zum clockrate auf jedem router einstellen 
+
+DELAY
+checkt da router atomatisch
+
+6.3.3.1
+DUAL 
+
+6.4.2.3 - 4
+danach würde das pinge schon gehen 
+-------------------------------------------------------------------
+IPv6 am ende nach :: muss noch eine zahl stehen also ::1/64 zum Beispiel
+
+bei IPv4 die ip statisch einstellen 
+
+Chapter 7
+
+stische route zum Internet 7.2.2.1
+!!redistibute static, wird nur die default route weitergegeben -- des brauch ma bei EIGRP!!
+
+
+-- falls wlan eingestzt wird dort muss man nd konfigurieren
+
+--aufpassen bei richte bandwith zurrichtigen clockrate
+
+
